@@ -2,9 +2,16 @@ import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FaArrowLeft, FaPaperPlane, FaMicrophone, FaVolumeUp, FaVolumeMute } from 'react-icons/fa'
-import io from 'socket.io-client'
+import {io} from 'socket.io-client'
 
-const socket = io('http://localhost:8080') // Update with your backend URL
+const socket = io("http://localhost:8080", {
+  withCredentials: true,
+  transports: ["websocket", "polling"], // Allow polling fallback
+  reconnection: true,  
+  reconnectionAttempts: 10, 
+  reconnectionDelay: 5000, 
+});
+
 
 const AITherapy = () => {
   const [messages, setMessages] = useState([
@@ -42,9 +49,10 @@ const AITherapy = () => {
     });
 
     return () => {
-        socket.disconnect();
-        console.log("Disconnected from server");
-    };
+      socket.off("bot_reply");
+      socket.off("connect");
+      socket.off("disconnect");
+  };  
 }, []);
   
   const handleSendMessage = () => {
