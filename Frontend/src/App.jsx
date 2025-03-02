@@ -14,6 +14,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Podcast from './pages/Podcast'
 import PodcastPlayer from './pages/PodcastPlayer'
+import Games from  './pages/Games'
 
 function App() {
   const location = useLocation()
@@ -48,7 +49,7 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/ai-therapy" element={<AITherapy />} />
-            <Route path="/doctor-appointment" element={<DoctorAppointment />} />
+            <Route path="/games" element={<Games />} />
             <Route path='/podcast' element={<Podcast />} />
             <Route path="/podcastplayer/:id" element={<PodcastPlayer />} />
             <Route path="/activities" element={<Activities />} />
