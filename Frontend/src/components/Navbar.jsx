@@ -48,6 +48,7 @@ const Navbar = () => {
                 <Link to="/dashboard" className={`font-medium transition-colors ${location.pathname === '/dashboard' ? 'text-primary-600' : 'text-gray-700 hover:text-primary-600'}`}>Dashboard</Link>
                 <Link to="/activities" className={`font-medium transition-colors ${location.pathname === '/activities' ? 'text-primary-600' : 'text-gray-700 hover:text-primary-600'}`}>Activities</Link>
                 <Link to="/doctor-appointment" className={`font-medium transition-colors ${location.pathname === '/doctor-appointment' ? 'text-primary-600' : 'text-gray-700 hover:text-primary-600'}`}>Appointments</Link>
+                <Link to="/podcast" className={`font-medium transition-colors ${location.pathname === '/podcast' ? 'text-primary-600' : 'text-gray-700 hover:text-primary-600'}`}>Podcast</Link>
                 <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center cursor-pointer">
                   <FaUser className="text-gray-600" />
                 </div>

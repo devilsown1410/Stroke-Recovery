@@ -12,6 +12,7 @@ import Activities from './pages/Activities'
 // Components
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import Podcast from './pages/Podcast'
 
 function App() {
   const location = useLocation()
@@ -47,6 +48,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/ai-therapy" element={<AITherapy />} />
             <Route path="/doctor-appointment" element={<DoctorAppointment />} />
+            <Route path="/podcast" element={<Podcast />} />
             <Route path="/activities" element={<Activities />} />
           </Routes>
         </AnimatePresence>
