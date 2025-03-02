@@ -2,6 +2,9 @@ import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FaArrowLeft, FaPaperPlane, FaMicrophone, FaVolumeUp, FaVolumeMute } from 'react-icons/fa'
+import io from 'socket.io-client'
+
+const socket = io('http://localhost:8080') // Update with your backend URL
 
 const AITherapy = () => {
   const [messages, setMessages] = useState([
@@ -24,11 +27,29 @@ const AITherapy = () => {
   useEffect(() => {
     scrollToBottom()
   }, [messages])
+
+  useEffect(() => {
+    socket.on("connect", () => console.log("Connected to server"));
+
+    socket.on("bot_reply", (data) => {
+        setMessages(prev => [...prev, { 
+            id: prev.length + 1, 
+            sender: "ai", 
+            text: data.reply, 
+            timestamp: new Date().toISOString() 
+        }]);
+        setIsTyping(false);
+    });
+
+    return () => {
+        socket.disconnect();
+        console.log("Disconnected from server");
+    };
+}, []);
   
   const handleSendMessage = () => {
     if (input.trim() === '') return
     
-    // Add user message
     const userMessage = {
       id: messages.length + 1,
       sender: 'user',
@@ -40,28 +61,7 @@ const AITherapy = () => {
     setInput('')
     setIsTyping(true)
     
-    // Simulate AI response after a delay
-    setTimeout(() => {
-      const aiResponses = [
-        "That's interesting. Can you tell me more about how that makes you feel?",
-        "I understand. It's normal to experience those emotions during recovery.",
-        "You're making great progress. Let's focus on some exercises that might help with that.",
-        "I'm here to support you through this journey. What specific challenges are you facing today?",
-        "That's a common experience during recovery. Have you tried the breathing exercises we discussed last time?"
-      ]
-      
-      const randomResponse = aiResponses[Math.floor(Math.random() * aiResponses.length)]
-      
-      const aiMessage = {
-        id: messages.length + 2,
-        sender: 'ai',
-        text: randomResponse,
-        timestamp: new Date().toISOString()
-      }
-      
-      setMessages(prev => [...prev, aiMessage])
-      setIsTyping(false)
-    }, 1500)
+    socket.emit('user_message', { text: userMessage.text })
   }
   
   const handleKeyPress = (e) => {
@@ -81,16 +81,11 @@ const AITherapy = () => {
   
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
-      {/* Virtual Room Background */}
       <div 
         className="fixed inset-0 bg-cover bg-center z-0" 
-        style={{ 
-          backgroundImage: `url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80')`,
-          filter: 'brightness(0.8)'
-        }}
+        style={{ backgroundImage: `url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1974&q=80')`, filter: 'brightness(0.8)' }}
       ></div>
       
-      {/* Header */}
       <header className="bg-white bg-opacity-90 shadow-md py-4 px-6 z-10">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
@@ -107,7 +102,6 @@ const AITherapy = () => {
               </div>
             </div>
           </div>
-          
           <button 
             onClick={toggleSpeech}
             className={`p-2 rounded-full ${isSpeaking ? 'bg-primary-100 text-primary-600' : 'bg-gray-100 text-gray-600'}`}
@@ -117,7 +111,6 @@ const AITherapy = () => {
         </div>
       </header>
       
-      {/* Chat Area */}
       <div className="flex-1 overflow-y-auto p-4 z-10">
         <div className="max-w-3xl mx-auto">
           <div className="space-y-4 pb-20">
@@ -143,25 +136,22 @@ const AITherapy = () => {
                 </div>
               </motion.div>
             ))}
-            
             {isTyping && (
               <div className="flex justify-start">
                 <div className="bg-white text-gray-800 rounded-lg rounded-bl-none p-4">
                   <div className="flex space-x-2">
-                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"></div>
+                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"></div>
+                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"></div>
                   </div>
                 </div>
               </div>
             )}
-            
             <div ref={messagesEndRef} />
           </div>
         </div>
       </div>
       
-      {/* Input Area */}
       <div className="bg-white bg-opacity-90 p-4 shadow-md z-10">
         <div className="max-w-3xl mx-auto">
           <div className="flex items-center bg-gray-100 rounded-full px-4 py-2">
