@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import 'dotenv/config'
+import { connectDB } from "./config/connectDB.js";
 
 const app=express();
 const allowedOrigins = [
@@ -9,7 +10,7 @@ const allowedOrigins = [
 
 const corsOptions = {
     origin: (origin, callback) => {
-        if (allowedOrigins.includes(origin) || !origin) { // !origin allows requests from non-browser clients (like Postman)
+        if (allowedOrigins.includes(origin) || !origin) {
             callback(null, true);
         } else {
             callback(new Error('Not allowed by CORS'), false);
@@ -21,7 +22,6 @@ const corsOptions = {
 app.use(express.json());
 app.use(cors(corsOptions))
 
-// connect database
 connectDB();
 
 
