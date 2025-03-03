@@ -3,7 +3,6 @@ import Podcast from '../models/Podcast.js'; // Assuming you have a Podcast model
 
 const router = express.Router();
 
-// Route to get the initial video URL and suggestions
 router.get('/', async (req, res) => {
   try {
     const podcasts = await Podcast.find();
