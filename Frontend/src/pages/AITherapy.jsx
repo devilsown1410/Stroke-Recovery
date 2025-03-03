@@ -28,6 +28,7 @@ const AITherapy = () => {
   const [isListening, setIsListening] = useState(false)
   const messagesEndRef = useRef(null)
   const recognitionRef = useRef(null)
+  const speechSynthesisRef = useRef(window.speechSynthesis)
   
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -36,6 +37,19 @@ const AITherapy = () => {
   useEffect(() => {
     scrollToBottom()
   }, [messages])
+
+  useEffect(() => {
+    const enableSpeech = () => {
+        if (!speechSynthesisRef.current) return;
+        const dummy = new SpeechSynthesisUtterance("Speech enabled");
+        speechSynthesisRef.current.speak(dummy);
+        console.log("Speech Synthesis Enabled");
+        window.removeEventListener("click", enableSpeech);
+    };
+
+    window.addEventListener("click", enableSpeech);
+    return () => window.removeEventListener("click", enableSpeech);
+}, []);
 
   useEffect(() => {
     socket.on("connect", () => console.log("Connected to server"));
@@ -48,6 +62,10 @@ const AITherapy = () => {
             timestamp: new Date().toISOString() 
         }]);
         setIsTyping(false);
+        if (isSpeaking) {
+          speechSynthesisRef.current.cancel();
+          speakText(data.reply);
+        }
     });
 
     return () => {
@@ -55,7 +73,7 @@ const AITherapy = () => {
       socket.off("connect");
       socket.off("disconnect");
   };  
-}, []);
+}, [isSpeaking]);
   
   const handleSendMessage = () => {
     if (input.trim() === '') return
@@ -83,6 +101,33 @@ const AITherapy = () => {
   const toggleSpeech = () => {
     setIsSpeaking(!isSpeaking)
   }
+
+  const speakText = (text) => {
+    if (!speechSynthesisRef.current) return;
+
+    speechSynthesisRef.current.cancel(); // Stop any previous speech
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    const voices = window.speechSynthesis.getVoices();
+
+    const femaleVoice = voices.find(voice => voice.name.includes("Female") || voice.name.includes("Zira") || voice.name.includes("Google UK English Female"));
+
+    if (femaleVoice) {
+        utterance.voice = femaleVoice;
+    }
+
+    utterance.onstart = () => {
+        console.log("Speaking...");
+    };
+
+    utterance.onend = () => {
+        console.log("Speech finished.");
+    };
+
+    speechSynthesisRef.current.speak(utterance);
+};
+
   
   const startListening = () => {
     if (!('webkitSpeechRecognition' in window)) {
