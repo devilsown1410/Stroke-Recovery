@@ -41,8 +41,6 @@ const AITherapy = () => {
   useEffect(() => {
     const enableSpeech = () => {
         if (!speechSynthesisRef.current) return;
-        const dummy = new SpeechSynthesisUtterance("Speech enabled");
-        speechSynthesisRef.current.speak(dummy);
         console.log("Speech Synthesis Enabled");
         window.removeEventListener("click", enableSpeech);
     };
