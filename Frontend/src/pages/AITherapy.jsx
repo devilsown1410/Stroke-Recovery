@@ -25,7 +25,9 @@ const AITherapy = () => {
   const [input, setInput] = useState('')
   const [isTyping, setIsTyping] = useState(false)
   const [isSpeaking, setIsSpeaking] = useState(false)
+  const [isListening, setIsListening] = useState(false)
   const messagesEndRef = useRef(null)
+  const recognitionRef = useRef(null)
   
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -82,6 +84,40 @@ const AITherapy = () => {
     setIsSpeaking(!isSpeaking)
   }
   
+  const startListening = () => {
+    if (!('webkitSpeechRecognition' in window)) {
+      alert("Speech recognition is not supported in this browser.")
+      return
+    }
+
+    const recognition = new window.webkitSpeechRecognition()
+    recognition.lang = 'en-US'
+    recognition.continuous = false
+    recognition.interimResults = false
+
+    recognition.onstart = () => setIsListening(true)
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript
+      setInput(transcript)
+      handleSendMessage(transcript)
+    }
+
+    recognition.onerror = (event) => console.error("Speech recognition error:", event)
+
+    recognition.onend = () => setIsListening(false)
+
+    recognition.start()
+    recognitionRef.current = recognition
+  }
+
+  const stopListening = () => {
+    if (recognitionRef.current) {
+      recognitionRef.current.stop()
+      setIsListening(false)
+    }
+  }
+
   const formatTime = (timestamp) => {
     const date = new Date(timestamp)
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
@@ -163,7 +199,10 @@ const AITherapy = () => {
       <div className="bg-white bg-opacity-90 p-4 shadow-md z-10">
         <div className="max-w-3xl mx-auto">
           <div className="flex items-center bg-gray-100 rounded-full px-4 py-2">
-            <button className="text-gray-500 hover:text-gray-700 mr-2">
+            <button 
+              onClick={isListening ? stopListening : startListening} 
+              className={`text-gray-500 hover:text-gray-700 mr-2 ${isListening ? 'text-red-500' : ''}`}
+            >
               <FaMicrophone />
             </button>
             <input
