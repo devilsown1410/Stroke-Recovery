@@ -5,6 +5,7 @@ import { Server } from "socket.io";
 import dotenv from 'dotenv'
 import { connectDB } from "./config/connectDB.js";
 import podcastRouter from './routes/podcast.js';
+import Games from './routes/Games.js'
 import { insert } from "./insert.js";
 import bodyParser from "body-parser";
 import chatbot from "./controllers/chatbot.js";
@@ -34,6 +35,7 @@ app.post("/chat", chatbot);
 // insert();
 
 app.use('/api/podcast', podcastRouter);
+app.use('/api/games', Games);
 
 app.get('/', (req, res) => {
     res.send("Hello ji aagye");
