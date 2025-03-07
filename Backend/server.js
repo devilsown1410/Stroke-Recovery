@@ -54,7 +54,7 @@ io.on("connection", (socket) => {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    contents: [{ parts: [{ text: data.text }] }]
+                    contents: [{ parts: [{ text: `Give a concise response: ${data.text}` }] }]
                 }),
             });
 

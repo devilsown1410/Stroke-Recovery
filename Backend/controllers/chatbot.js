@@ -30,6 +30,16 @@ const chatbot = async (req, res) => {
         // Extract AI response
         const botReply = data.candidates?.[0]?.content?.parts?.map(part => part.text).join(" ") || "I'm not sure how to respond.";
 
+        botReply = botReply
+            .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")  // Convert **text** to <strong>text</strong>
+            .replace(/\*(.*?)\*/g, "$1")  // Remove * used for bullet points
+            .replace(/\n+/g, " ")  // Convert newlines into spaces for a clean paragraph
+            .replace(/\s+/g, " ")  // Remove extra spaces
+
+        // Shorten response: Keep key parts only
+        const sentences = botReply.split(". ");
+        botReply = sentences.slice(0, 3).join(". ") + ".";
+        
         res.json({ reply: botReply });
     } catch (error) {
         console.error("Error:", error.message);

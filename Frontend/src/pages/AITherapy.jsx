@@ -53,10 +53,16 @@ const AITherapy = () => {
     socket.on("connect", () => console.log("Connected to server"));
 
     socket.on("bot_reply", (data) => {
+      let formattedReply = data.reply
+      .replace(/#\s*(.*?)\n/g, "") 
+      .replace(/\*\*(.*?)\*\*/g, "$1")  // Convert **bold** to <strong>bold</strong>
+      .replace(/\*(.*?)\*/g, "")  // Convert *bullets* to <br> • bullet
+      .replace(/\s+/g, " ")// Convert "text" to proper quotes
+
         setMessages(prev => [...prev, { 
             id: prev.length + 1, 
             sender: "ai", 
-            text: data.reply, 
+            text: formattedReply, 
             timestamp: new Date().toISOString() 
         }]);
         setIsTyping(false);
@@ -70,6 +76,10 @@ const AITherapy = () => {
       socket.off("bot_reply");
       socket.off("connect");
       socket.off("disconnect");
+
+      if (speechSynthesisRef.current) {
+        speechSynthesisRef.current.cancel();
+      }
   };  
 }, [isSpeaking]);
   
