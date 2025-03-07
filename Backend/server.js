@@ -57,7 +57,7 @@ io.on("connection", (socket) => {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    contents: [{ parts: [{ text: `Give a concise response: ${data.text}` }] }]
+                    contents: [{ parts: [{ text: `Provide a precise health-related response only if any query is asked then Focus on mental health, fitness, well-being, stroke recovery, ADHD, cognitive thinking, and overall betterment and if not on these topics tell the user i have no idea about it.\n\nUser Query: ${data.text}` }] }]
                 }),
             });
 
