@@ -63,7 +63,9 @@ const Dashboard = () => {
       image: "https://randomuser.me/api/portraits/men/52.jpg"
     }
   ])
-  
+  const [activeActivity, setActiveActivity] = useState(null);
+  const [timeLeft, setTimeLeft] = useState(0);
+  const [isFrozen, setIsFrozen] = useState(false);
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
     visible: { 
@@ -72,19 +74,45 @@ const Dashboard = () => {
       transition: { duration: 0.5 }
     }
   }
-  
   const completeActivity = (id) => {
     setActivities(activities.map(activity => 
       activity.id === id ? { ...activity, completed: true } : activity
-    ))
-    
+    ));
+  
     setStats(prev => ({
       ...prev,
       points: prev.points + activities.find(a => a.id === id).points,
       activitiesCompleted: prev.activitiesCompleted + 1,
-      todayMinutes: prev.todayMinutes + parseInt(activities.find(a => a.id === id).duration)
-    }))
-  }
+      todayMinutes: prev.todayMinutes + Math.floor(timeLeft / 60)
+    }));
+  
+    setIsFrozen(false);
+    setActiveActivity(null);
+  };
+  
+  const startActivity = (activity) => {
+    const totalSeconds = parseInt(activity.duration) * 60; // Convert minutes to seconds
+    setActiveActivity(activity);
+    setTimeLeft(totalSeconds);
+    setIsFrozen(true);
+  
+    const interval = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          completeActivity(activity.id);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000); // Update every second
+  };
+  
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+  };
   
   return (
     <div className="pt-20 pb-10 bg-gray-50 min-h-screen">
@@ -222,14 +250,24 @@ const Dashboard = () => {
                           </span>
                         </div>
                       </div>
-                      
+                      {isFrozen && (
+                        <div className="fixed inset-0 bg-black bg-opacity-75 flex flex-col items-center justify-center text-white z-50">
+                          <h2 className="text-3xl font-bold mb-4">Activity In Progress</h2>
+                          
+                          <div className="bg-gray-900 p-6 rounded-lg shadow-lg flex items-center justify-center">
+                            <span className="text-6xl font-mono">{formatTime(timeLeft)}</span>
+                          </div>
+
+                          <p className="mt-2 text-gray-300">Stay focused and complete the task!</p>
+                        </div>
+                      )}
                       <button
-                        onClick={() => completeActivity(activity.id)}
-                        disabled={activity.completed}
+                        onClick={() => startActivity(activity)}
+                        disabled={activity.completed || isFrozen}
                         className={`px-4 py-2 rounded-lg font-medium ${
                           activity.completed
                             ? 'bg-green-100 text-green-700 cursor-default'
-                            : 'bg-primary-600 text-white hover:bg-primary-700'
+                            : 'bg-primary-600 text-white hover:bg-primary-700 disabled:bg-gray-400 disabled:cursor-not-allowed'
                         }`}
                       >
                         {activity.completed ? 'Completed' : 'Start'}
