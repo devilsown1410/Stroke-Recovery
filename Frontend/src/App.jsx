@@ -15,6 +15,7 @@ import Footer from './components/Footer'
 import Podcast from './pages/Podcast'
 import PodcastPlayer from './pages/PodcastPlayer'
 import Games from  './pages/Games'
+import LoginSign from './pages/LoginSign'
 
 function App() {
   const location = useLocation()
@@ -47,6 +48,7 @@ function App() {
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<LoginSign />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/ai-therapy" element={<AITherapy />} />
             <Route path="/games" element={<Games />} />

@@ -7,6 +7,8 @@ import { connectDB } from "./config/connectDB.js";
 import podcastRouter from './routes/podcast.js';
 import Games from './routes/Games.js';
 import Activity from './routes/Activity.js';
+import Login from './routes/Login.js'
+import Signin from './routes/Signin.js'
 import { insert } from "./insert.js";
 import bodyParser from "body-parser";
 import chatbot from "./controllers/chatbot.js";
@@ -14,7 +16,6 @@ import chatbot from "./controllers/chatbot.js";
 const app = express();
 const server = http.createServer(app); 
 
-// 🔹 Update Socket.io configuration
 dotenv.config()
 const io = new Server(server, {
     cors: {
@@ -22,9 +23,9 @@ const io = new Server(server, {
         methods: ["GET", "POST"],
         credentials: true,
     },
-    transports: ["websocket"],  // 🚀 Force WebSocket only
-    pingTimeout: 60000,  // ⏳ Extend timeout
-    pingInterval: 25000, // 🔄 Keep connection alive
+    transports: ["websocket"],  
+    pingTimeout: 60000,  
+    pingInterval: 25000, 
 });
 
 app.use(express.json());
@@ -38,13 +39,15 @@ app.post("/chat", chatbot);
 app.use('/api/podcast', podcastRouter);
 app.use('/api/games', Games);
 app.use('/api/activity', Activity);
+app.use('/api/login', Login);
+app.use('/api/signin', Signin);
+
 
 
 app.get('/', (req, res) => {
     res.send("Hello ji aagye");
 });
 
-// 🔹 WebSocket Connection Handling
 io.on("connection", (socket) => {
     console.log(`🔗 User connected: ${socket.id}`);
 
