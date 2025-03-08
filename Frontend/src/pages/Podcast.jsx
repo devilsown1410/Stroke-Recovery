@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { FaFilter, FaSearch, FaPlay } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import Navbar from '../components/Navbar'
 
 const Podcast = () => {
   const [filter, setFilter] = useState('all')
@@ -46,6 +47,7 @@ const Podcast = () => {
 
   return (
     <div className="pt-20 pb-10 bg-gray-50 min-h-screen">
+      <Navbar/>
       <div className="container mx-auto px-4">
         <motion.div
           initial="hidden"

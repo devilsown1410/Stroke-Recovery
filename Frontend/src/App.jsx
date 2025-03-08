@@ -6,7 +6,7 @@ import { AnimatePresence } from 'framer-motion'
 import LandingPage from './pages/LandingPage'
 import Dashboard from './pages/Dashboard'
 import AITherapy from './pages/AITherapy'
-import DoctorAppointment from './pages/DoctorAppointment'
+import AllDoctors from './pages/AllDoctors'
 import Activities from './pages/Activities'
 
 // Components
@@ -45,7 +45,6 @@ function App() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {location.pathname !== '/ai-therapy' && <Navbar />}
       <main className="flex-grow">
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
@@ -53,6 +52,7 @@ function App() {
             <Route path="/login" element={<LoginSign />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/ai-therapy" element={<AITherapy />} />
+            <Route path="/all-doctor" element={<AllDoctors />} />
             <Route path="/games" element={<Games />} />
             <Route path='/podcast' element={<Podcast />} />
             <Route path="/podcastplayer/:id" element={<PodcastPlayer />} />
