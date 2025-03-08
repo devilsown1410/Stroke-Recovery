@@ -19,6 +19,7 @@ import LoginSign from './pages/LoginSign'
 import Breathing from './pages/Breathing'
 import MemoryMatching from './pages/MemoryMatching'
 import { ExerciseDetector } from './pages/Exercise'
+import Appointments from './pages/Appointments'
 
 function App() {
   const location = useLocation()
@@ -54,6 +55,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/ai-therapy" element={<AITherapy />} />
             <Route path="/all-doctor" element={<AllDoctors />} />
+            <Route path="/appointments" element={<Appointments />} />
             <Route path="/games" element={<Games />} />
             <Route path='/podcast' element={<Podcast />} />
             <Route path="/podcastplayer/:id" element={<PodcastPlayer />} />
@@ -61,9 +63,6 @@ function App() {
             <Route path="/breathing" element={<Breathing />} />
             <Route path="/matchgame" element={<MemoryMatching />} />
             <Route path="/exercise" element={<ExerciseDetector />} />
-
-
-
           </Routes>
         </AnimatePresence>
       </main>

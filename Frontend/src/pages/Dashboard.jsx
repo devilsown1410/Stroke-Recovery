@@ -18,6 +18,8 @@ const Dashboard = () => {
     weeklyProgress: 60
   })
   
+  const user = JSON.parse(localStorage.getItem("crUser"));
+  console.log(user);
   const [activities, setActivities] = useState([
     {
       id: 1,
@@ -114,6 +116,7 @@ const Dashboard = () => {
       });
     }, 1000); // Update every second
   };
+
   
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -131,7 +134,7 @@ const Dashboard = () => {
             animate="visible"
             variants={fadeIn}
           >
-            <h1 className="text-3xl font-bold text-gray-800">Welcome back, Rahul!</h1>
+            <h1 className="text-3xl font-bold text-gray-800">Welcome back, {user.username}!</h1>
             <p className="text-gray-600">Let's continue your recovery journey today.</p>
           </motion.div>
           
