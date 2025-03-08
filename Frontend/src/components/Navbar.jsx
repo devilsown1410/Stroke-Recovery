@@ -45,6 +45,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-6">
             {isLoggedIn ? (
               <>
+                <Link to="/GoogleMeet" className={`font-medium transition-colors ${location.pathname === '/dashboard' ? 'text-primary-600' : 'text-gray-700 hover:text-primary-600'}`}>Meet</Link>
                 <Link to="/dashboard" className={`font-medium transition-colors ${location.pathname === '/dashboard' ? 'text-primary-600' : 'text-gray-700 hover:text-primary-600'}`}>Dashboard</Link>
                 <Link to="/activities" className={`font-medium transition-colors ${location.pathname === '/activities' ? 'text-primary-600' : 'text-gray-700 hover:text-primary-600'}`}>Activities</Link>
                 <Link to="/games" className={`font-medium transition-colors ${location.pathname === '/games' ? 'text-primary-600' : 'text-gray-700 hover:text-primary-600'}`}>Games</Link>
