@@ -18,6 +18,7 @@ import Games from  './pages/Games'
 import LoginSign from './pages/LoginSign'
 import Breathing from './pages/Breathing'
 import MemoryMatching from './pages/MemoryMatching'
+import { ExerciseDetector } from './pages/Exercise'
 
 function App() {
   const location = useLocation()
@@ -59,6 +60,8 @@ function App() {
             <Route path="/activities" element={<Activities />} />
             <Route path="/breathing" element={<Breathing />} />
             <Route path="/matchgame" element={<MemoryMatching />} />
+            <Route path="/exercise" element={<ExerciseDetector />} />
+
 
 
           </Routes>

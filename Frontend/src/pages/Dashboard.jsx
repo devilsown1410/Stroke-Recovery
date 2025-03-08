@@ -41,13 +41,13 @@ const Dashboard = () => {
     },
     {
       id: 3,
-      title: "Speech Practice",
-      description: "Read aloud passages and receive feedback on pronunciation",
-      duration: "20 min",
+      title: "Physical Exercise",
+      description: "Follow guided exercises to improve strength and mobility.",
+      duration: "15 min",
       points: 60,
-      category: "Speech",
+      category: "Physical",
       completed: false,
-      url:"/breathing"
+      url:"/exercise"
 
     }
   ])
