@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { FaCalendarCheck, FaChartLine, FaTrophy, FaStopwatch, FaFire, FaRegCalendarAlt, FaRobot, FaUserMd } from 'react-icons/fa'
 import ThreeScene from '../components/ThreeScene'
 import Navbar from '../components/Navbar'
+import axios from 'axios'
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -54,27 +55,50 @@ const Dashboard = () => {
     }
   ])
   
-  const [appointments, setAppointments] = useState([
-    {
-      id: 1,
-      doctor: "Dr. Saransh",
-      specialty: "Neurologist",
-      date: "May 15, 2025",
-      time: "10:30 AM",
-      image: "https://randomuser.me/api/portraits/men/52.jpg"
-    },
-    {
-      id: 2,
-      doctor: "Dr. Sam",
-      specialty: "Physical Therapist",
-      date: "May 18, 2025",
-      time: "2:00 PM",
-      image: "https://randomuser.me/api/portraits/men/52.jpg"
-    }
-  ])
+  // const [appointments, setAppointments] = useState([
+  //   {
+  //     id: 1,
+  //     doctor: "Dr. Saransh",
+  //     specialty: "Neurologist",
+  //     date: "May 15, 2025",
+  //     time: "10:30 AM",
+  //     image: "https://randomuser.me/api/portraits/men/52.jpg"
+  //   },
+  //   {
+  //     id: 2,
+  //     doctor: "Dr. Sam",
+  //     specialty: "Physical Therapist",
+  //     date: "May 18, 2025",
+  //     time: "2:00 PM",
+  //     image: "https://randomuser.me/api/portraits/men/52.jpg"
+  //   }
+  // ])
+  const [appointments, setAppointments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [activeActivity, setActiveActivity] = useState(null);
   const [timeLeft, setTimeLeft] = useState(0);
   const [isFrozen, setIsFrozen] = useState(false);
+
+  useEffect(() => {
+    const fetchAppointments = async () => {  
+      try {
+        // console.log("hii");
+        const response = await axios.get("http://localhost:8080/api/appointments/upcoming");
+        console.log(response.data);
+        setAppointments(response.data);
+      } catch (err) {
+        setError("Failed to fetch appointments");
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAppointments();
+  }, []);
+  // if (loading) return <p>Loading...</p>;
+  // if (error) return <p>{error}</p>;
+  
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
     visible: { 
@@ -360,19 +384,20 @@ const Dashboard = () => {
               {appointments.length > 0 ? (
                 <div className="space-y-4">
                   {appointments.map((appointment) => (
+                    
                     <div key={appointment.id} className="p-4 border border-gray-200 rounded-lg hover:border-primary-200 hover:shadow-md transition-all">
                       <div className="flex items-center">
-                        <img 
+                        {/* <img 
                           src={appointment.image} 
                           alt={appointment.doctor} 
                           className="w-12 h-12 rounded-full object-cover mr-4"
-                        />
+                        /> */}
                         <div>
-                          <h3 className="font-semibold text-gray-800">{appointment.doctor}</h3>
-                          <p className="text-gray-600 text-sm">{appointment.specialty}</p>
+                          <h3 className="font-semibold text-gray-800">{appointment.doctorId.name}</h3>
+                          <p className="text-gray-600 text-sm">{appointment.doctorId.specialist}</p>
                           <div className="flex items-center mt-1 text-sm text-gray-500">
                             <FaRegCalendarAlt className="mr-1" />
-                            <span>{appointment.date} at {appointment.time}</span>
+                            <span>{appointment.date.toString().split("T")[0]} at {appointment.timeSlot}</span>
                           </div>
                         </div>
                       </div>

@@ -68,6 +68,16 @@ export const cancelAppointment = async (req, res) => {
     }
 };
 
+export const getUpcomingAppointments = async (req, res) => {
+    try {
+        // console.log("upcomingAppointments")
+        const upcomingAppointments = await Appointment.find({ status: 'Upcoming' }).populate('userId doctorId');
+        res.status(200).json(upcomingAppointments);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching upcoming appointments", error });
+    }
+};
+
 // Mark an appointment as completed
 // export const completeAppointment = async (req, res) => {
 //     try {
