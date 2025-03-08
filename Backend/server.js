@@ -12,6 +12,7 @@ import Signin from './routes/Signin.js'
 import { insert } from "./insert.js";
 import bodyParser from "body-parser";
 import chatbot from "./controllers/chatbot.js";
+import AllDoctors from "./routes/AllDoctors.js";
 
 const app = express();
 const server = http.createServer(app); 
@@ -39,6 +40,7 @@ app.post("/chat", chatbot);
 app.use('/api/podcast', podcastRouter);
 app.use('/api/games', Games);
 app.use('/api/activity', Activity);
+app.use('/api/all-doctor', AllDoctors);
 app.use('/api/login', Login);
 app.use('/api/signin', Signin);
 
