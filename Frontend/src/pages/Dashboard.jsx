@@ -1,29 +1,31 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FaCalendarCheck, FaChartLine, FaTrophy, FaStopwatch, FaFire, FaRegCalendarAlt, FaRobot, FaUserMd } from 'react-icons/fa'
 import ThreeScene from '../components/ThreeScene'
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [stats, setStats] = useState({
-    streak: 12,
-    points: 2450,
-    activitiesCompleted: 78,
-    nextMilestone: 100,
+    streak: 2,
+    points: 50,
+    activitiesCompleted: 6,
+    nextMilestone: 25,
     todayMinutes: 25,
     weeklyGoal: 180,
-    weeklyProgress: 135
+    weeklyProgress: 100
   })
   
   const [activities, setActivities] = useState([
     {
       id: 1,
-      title: "Hand Coordination Exercise",
-      description: "Practice fine motor skills with interactive finger exercises",
+      title: "Breathing Exercise",
+      description: "Follow guided breathing techniques to improve lung capacity and relaxation.",
       duration: "15 min",
       points: 50,
-      category: "Physical",
-      completed: false
+      category: "Relaxation",
+      completed: false,
+      url:"/breathing"
     },
     {
       id: 2,
@@ -32,7 +34,8 @@ const Dashboard = () => {
       duration: "10 min",
       points: 40,
       category: "Cognitive",
-      completed: false
+      completed: false,
+      url:"/matchgame"
     },
     {
       id: 3,
@@ -41,7 +44,8 @@ const Dashboard = () => {
       duration: "20 min",
       points: 60,
       category: "Speech",
-      completed: false
+      completed: false,
+      url:"/breathing"
     }
   ])
   
@@ -262,7 +266,7 @@ const Dashboard = () => {
                         </div>
                       )}
                       <button
-                        onClick={() => startActivity(activity)}
+                        onClick={() => navigate(activity?.url)}
                         disabled={activity.completed || isFrozen}
                         className={`px-4 py-2 rounded-lg font-medium ${
                           activity.completed

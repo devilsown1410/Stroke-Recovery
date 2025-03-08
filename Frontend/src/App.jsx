@@ -16,6 +16,8 @@ import Podcast from './pages/Podcast'
 import PodcastPlayer from './pages/PodcastPlayer'
 import Games from  './pages/Games'
 import LoginSign from './pages/LoginSign'
+import Breathing from './pages/Breathing'
+import MemoryMatching from './pages/MemoryMatching'
 
 function App() {
   const location = useLocation()
@@ -55,6 +57,10 @@ function App() {
             <Route path='/podcast' element={<Podcast />} />
             <Route path="/podcastplayer/:id" element={<PodcastPlayer />} />
             <Route path="/activities" element={<Activities />} />
+            <Route path="/breathing" element={<Breathing />} />
+            <Route path="/matchgame" element={<MemoryMatching />} />
+
+
           </Routes>
         </AnimatePresence>
       </main>
