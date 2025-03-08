@@ -34,10 +34,10 @@ const Navbar = () => {
               transition={{ duration: 0.5 }}
               className="flex items-center"
             >
-              <div className="w-10 h-10 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500 flex items-center justify-center mr-2">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-r from-indigo-500 to-sky-500 flex items-center justify-center mr-2">
                 <span className="text-white font-bold text-xl">R</span>
               </div>
-              <span className="text-xl font-bold gradient-text">RecoverWell</span>
+              <span className="text-xl font-bold text-indigo-500">Stroke Recovery</span>
             </motion.div>
           </Link>
           

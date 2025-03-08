@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FaBrain, FaHeartbeat, FaChartLine, FaCalendarAlt, FaRobot, FaUserMd } from 'react-icons/fa'
 import ThreeScene from '../components/ThreeScene'
+import Navbar from '../components/Navbar'
 
 const LandingPage = () => {
   const featuresRef = useRef(null)
@@ -30,6 +31,7 @@ const LandingPage = () => {
   
   return (
     <div className="overflow-hidden">
+      <Navbar/>
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center pt-20">
         <div className="absolute inset-0 z-0">
@@ -43,8 +45,8 @@ const LandingPage = () => {
               variants={fadeIn}
             >
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                <span className="gradient-text">Recover</span> with Joy, <br />
-                <span className="gradient-text">Rebuild</span> with Purpose
+                <span className="gradient-text text-gradient-to-r from-indigo-500 to-sky-500">Recover</span> with Joy, <br />
+                <span className="gradient-text text-gradient-to-r from-indigo-500 to-sky-500">Rebuild</span> with Purpose
               </h1>
               <p className="text-lg md:text-xl text-gray-700 mb-8 max-w-lg">
                 Our gamified stroke recovery platform makes rehabilitation engaging, 

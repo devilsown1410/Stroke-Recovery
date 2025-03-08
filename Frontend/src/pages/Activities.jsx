@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { FaFilter, FaSearch, FaStopwatch, FaTrophy, FaStar } from 'react-icons/fa'
+import Navbar from '../components/Navbar'
 
 const Activities = () => {
   const [filter, setFilter] = useState('all')
@@ -87,6 +88,7 @@ const Activities = () => {
   
   return (
     <div className="pt-20 pb-10 bg-gray-50 min-h-screen">
+      <Navbar/>
       <div className="container mx-auto px-4">
         <motion.div
           initial="hidden"

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { FaSearch, FaPlay, FaStar } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import Navbar from '../components/Navbar'
 
 const Games = () => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -42,6 +43,7 @@ const Games = () => {
 
   return (
     <div className="pt-20 pb-10 bg-gray-50 min-h-screen">
+      <Navbar/>
       <div className="container mx-auto px-4">
         {selectedGame ? (
           <div className="flex flex-col items-center">

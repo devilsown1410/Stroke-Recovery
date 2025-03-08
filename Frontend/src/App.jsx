@@ -43,7 +43,6 @@ function App() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {location.pathname !== '/ai-therapy' && <Navbar />}
       <main className="flex-grow">
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>

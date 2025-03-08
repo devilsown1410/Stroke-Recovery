@@ -3,16 +3,17 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FaCalendarCheck, FaChartLine, FaTrophy, FaStopwatch, FaFire, FaRegCalendarAlt, FaRobot, FaUserMd } from 'react-icons/fa'
 import ThreeScene from '../components/ThreeScene'
+import Navbar from '../components/Navbar'
 
 const Dashboard = () => {
   const [stats, setStats] = useState({
-    streak: 12,
-    points: 2450,
-    activitiesCompleted: 78,
+    streak: 2,
+    points: 50,
+    activitiesCompleted: 6,
     nextMilestone: 100,
     todayMinutes: 25,
     weeklyGoal: 180,
-    weeklyProgress: 135
+    weeklyProgress: 60
   })
   
   const [activities, setActivities] = useState([
@@ -48,15 +49,15 @@ const Dashboard = () => {
   const [appointments, setAppointments] = useState([
     {
       id: 1,
-      doctor: "Dr. Sarah Williams",
+      doctor: "Dr. Saransh",
       specialty: "Neurologist",
       date: "May 15, 2025",
       time: "10:30 AM",
-      image: "https://randomuser.me/api/portraits/women/28.jpg"
+      image: "https://randomuser.me/api/portraits/men/52.jpg"
     },
     {
       id: 2,
-      doctor: "Dr. James Chen",
+      doctor: "Dr. Sam",
       specialty: "Physical Therapist",
       date: "May 18, 2025",
       time: "2:00 PM",
@@ -116,6 +117,7 @@ const Dashboard = () => {
   
   return (
     <div className="pt-20 pb-10 bg-gray-50 min-h-screen">
+      <Navbar/>
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
           <motion.div
@@ -123,7 +125,7 @@ const Dashboard = () => {
             animate="visible"
             variants={fadeIn}
           >
-            <h1 className="text-3xl font-bold text-gray-800">Welcome back, Alex!</h1>
+            <h1 className="text-3xl font-bold text-gray-800">Welcome back, Rahul!</h1>
             <p className="text-gray-600">Let's continue your recovery journey today.</p>
           </motion.div>
           

@@ -27,16 +27,16 @@ const chatbot = async (req, res) => {
             return res.status(response.status).json({ error: data.error?.message || "Failed to fetch AI response" });
         }
 
-        // Extract AI response
+        // AI response
         const botReply = data.candidates?.[0]?.content?.parts?.map(part => part.text).join(" ") || "I'm not sure how to respond.";
 
         botReply = botReply
-            .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")  // Convert **text** to <strong>text</strong>
-            .replace(/\*(.*?)\*/g, "$1")  // Remove * used for bullet points
-            .replace(/\n+/g, " ")  // Convert newlines into spaces for a clean paragraph
-            .replace(/\s+/g, " ")  // Remove extra spaces
+            .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")  
+            .replace(/\*(.*?)\*/g, "$1")  
+            .replace(/\n+/g, " ")  
+            .replace(/\s+/g, " ")  
 
-        // Shorten response: Keep key parts only
+        // Shorten response
         const sentences = botReply.split(". ");
         botReply = sentences.slice(0, 3).join(". ") + ".";
         

@@ -6,7 +6,7 @@ import {io} from 'socket.io-client'
 
 const socket = io("http://localhost:8080", {
   withCredentials: true,
-  transports: ["websocket", "polling"], // Allow polling fallback
+  transports: ["websocket", "polling"], 
   reconnection: true,  
   reconnectionAttempts: 10, 
   reconnectionDelay: 5000, 
@@ -18,7 +18,7 @@ const AITherapy = () => {
     { 
       id: 1, 
       sender: 'ai', 
-      text: "Hello! I'm Dr. Emma, your AI therapy assistant. How are you feeling today?",
+      text: "Hello! I'm Dr. Ira, your AI therapy assistant. How are you feeling today?",
       timestamp: new Date().toISOString()
     }
   ])
@@ -194,7 +194,7 @@ const AITherapy = () => {
                 <span className="text-primary-600 font-bold">AI</span>
               </div>
               <div>
-                <h1 className="font-bold text-gray-800">Dr. Emma</h1>
+                <h1 className="font-bold text-gray-800">Dr. Ira</h1>
                 <p className="text-sm text-gray-500">AI Therapy Assistant</p>
               </div>
             </div>
