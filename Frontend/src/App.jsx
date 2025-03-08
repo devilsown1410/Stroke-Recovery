@@ -20,6 +20,7 @@ import Breathing from './pages/Breathing'
 import MemoryMatching from './pages/MemoryMatching'
 import { ExerciseDetector } from './pages/Exercise'
 import Appointments from './pages/Appointments'
+import GoogleMeet from './components/GoogleMeet'
 
 function App() {
   const location = useLocation()
@@ -63,6 +64,8 @@ function App() {
             <Route path="/breathing" element={<Breathing />} />
             <Route path="/matchgame" element={<MemoryMatching />} />
             <Route path="/exercise" element={<ExerciseDetector />} />
+            <Route path="/GoogleMeet" element={<GoogleMeet />} />
+
           </Routes>
         </AnimatePresence>
       </main>
