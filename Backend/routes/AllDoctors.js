@@ -1,4 +1,6 @@
-const Doctor = require('../models/Doctor');
+import Doctor from "../models/Doctor.js";
+import DoctorsData from "../models/Doctor.js";
+import express from "express";
 const router = express.Router();
 
 router.post('/', async (req, res) => {
@@ -14,4 +16,3 @@ router.post('/', async (req, res) => {
 
 export default router;
 
-                

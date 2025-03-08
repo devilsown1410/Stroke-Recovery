@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const doctorSchema = new mongoose.Schema({
   name: {
@@ -38,7 +38,7 @@ const doctorSchema = new mongoose.Schema({
       status: { type: String, enum: ["Scheduled", "Completed", "Cancelled"], default: "Scheduled" },
     },
   ],
+});
 
-}, {collection:'DrData'});
-
-module.exports = mongoose.model('DoctorsData', doctorSchema);
+const Doctor = mongoose.model('Doctor', doctorSchema);
+export default Doctor;

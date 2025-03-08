@@ -6,13 +6,13 @@ import ThreeScene from '../components/ThreeScene'
 
 const Dashboard = () => {
   const [stats, setStats] = useState({
-    streak: 12,
-    points: 2450,
-    activitiesCompleted: 78,
+    streak: 2,
+    points: 50,
+    activitiesCompleted: 6,
     nextMilestone: 100,
     todayMinutes: 25,
     weeklyGoal: 180,
-    weeklyProgress: 135
+    weeklyProgress: 100
   })
   
   const [activities, setActivities] = useState([
@@ -40,7 +40,7 @@ const Dashboard = () => {
       description: "Read aloud passages and receive feedback on pronunciation",
       duration: "20 min",
       points: 60,
-      category: "Speech",
+      category: "Speech", 
       completed: false
     }
   ])
@@ -123,7 +123,7 @@ const Dashboard = () => {
             animate="visible"
             variants={fadeIn}
           >
-            <h1 className="text-3xl font-bold text-gray-800">Welcome back, Alex!</h1>
+            <h1 className="text-3xl font-bold text-gray-800">Welcome back, Rahul!</h1>
             <p className="text-gray-600">Let's continue your recovery journey today.</p>
           </motion.div>
           
@@ -323,7 +323,7 @@ const Dashboard = () => {
                   </div>
                 </Link>
                 
-                <Link to="/doctor-appointment" className="block p-4 border border-gray-200 rounded-lg hover:border-primary-200 hover:shadow-md transition-all">
+                <Link to="/all-doctor" className="block p-4 border border-gray-200 rounded-lg hover:border-primary-200 hover:shadow-md transition-all">
                   <div className="flex items-center">
                     <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mr-4">
                       <FaUserMd className="text-primary-600 text-xl" />
