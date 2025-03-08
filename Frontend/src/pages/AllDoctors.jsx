@@ -24,7 +24,7 @@ const DoctorList = () => {
     
     // Assign a random userId if it's just for testing
     const [appointmentData, setAppointmentData] = useState({
-        userId: JSON.parse(localStorage.getItem("crUser")), // Temporary until actual userId is available
+        userId: JSON.parse(localStorage.getItem("crUser"))._id, // Temporary until actual userId is available
         doctorId: "",
         date: "",
         day: "",
