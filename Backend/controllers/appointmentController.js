@@ -1,21 +1,32 @@
+import mongoose from "mongoose";
 import Appointment from "../models/Appointment.js";
 import Doctor from "../models/Doctor.js";
 
-// Create a new appointment
 export const createAppointment = async (req, res) => {
+    console.log("Received Data:", req.body);
+
     try {
         const { userId, doctorId, date, day, timeSlot } = req.body;
-
-        // Ensure doctor exists
-        const doctor = await DoctorsData.findById(doctorId);
+        if (!userId || !doctorId || !date || !day || !timeSlot) {
+            return res.status(400).json({ message: "All fields are required" });
+        }
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400).json({ message: "Invalid userId format" });
+        }
+        if (!mongoose.Types.ObjectId.isValid(doctorId)) {
+            return res.status(400).json({ message: "Invalid doctorId format" });
+        }
+        
+        const userObjectId = new mongoose.Types.ObjectId(userId);
+        const doctorObjectId = new mongoose.Types.ObjectId(doctorId);
+        
+        const doctor = await Doctor.findById(doctorId);
         if (!doctor) return res.status(404).json({ message: "Doctor not found" });
-
-        // Check if the doctor is available on the selected day
-        if (!doctor.availability.days.includes(day)) {
+        if (!doctor.availability?.days?.includes(day)) {
             return res.status(400).json({ message: `Doctor is not available on ${day}` });
         }
 
-        // Create appointment
+        // Create new appointment
         const newAppointment = new Appointment({
             userId,
             doctorId,
@@ -28,6 +39,7 @@ export const createAppointment = async (req, res) => {
         res.status(201).json({ message: "Appointment booked successfully", appointment: newAppointment });
 
     } catch (error) {
+        console.error("Error creating appointment:", error);
         res.status(500).json({ message: "Error creating appointment", error });
     }
 };

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FaUserMd, FaMapMarkerAlt, FaClock, FaEnvelope, FaPhone } from "react-icons/fa";
 import Modal from "react-modal";
+import { useNavigate } from "react-router-dom";
 
 const modalStyles = {
     content: {
@@ -20,15 +21,17 @@ const DoctorList = () => {
     const [selectedSpecialty, setSelectedSpecialty] = useState("All");
     const [selectedDoctor, setSelectedDoctor] = useState(null);
     const [showModal, setShowModal] = useState(false);
+    
+    // Assign a random userId if it's just for testing
     const [appointmentData, setAppointmentData] = useState({
-        userId: "USER_ID",
+        userId: JSON.parse(localStorage.getItem("crUser")), // Temporary until actual userId is available
         doctorId: "",
         date: "",
         day: "",
         timeSlot: ""
     });
     const [selectedDay, setSelectedDay] = useState("");
-
+    const navigate=useNavigate();
     useEffect(() => {
         const fetchDoctors = async () => {
             try {
@@ -43,8 +46,7 @@ const DoctorList = () => {
             }
         };
         fetchDoctors();
-    }, []);
-
+    }, []);    
     const filterBySpecialty = (specialty) => {
         setSelectedSpecialty(specialty);
         if (specialty === "All") {
@@ -73,7 +75,7 @@ const DoctorList = () => {
         e.preventDefault();
         try {
             await axios.post("http://localhost:8080/api/appointments/create", appointmentData);
-            alert("Appointment booked successfully!");
+            navigate('/appointments')
             closeModal();
         } catch (error) {
             console.error("Error booking appointment:", error);
