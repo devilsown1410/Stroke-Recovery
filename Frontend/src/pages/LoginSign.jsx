@@ -29,8 +29,12 @@ const LoginSign = () => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:8080/api/login', { email, password });
+            // console.log(response.data);
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('email', email);
+            localStorage.setItem("crUser", JSON.stringify(response.data.user));
+            // console.log(response.data.user);
+      
             navigate('/dashboard');
         } catch (error) {
             console.error('Login failed:', error);
