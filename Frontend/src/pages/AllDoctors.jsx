@@ -75,7 +75,7 @@ const DoctorList = () => {
         e.preventDefault();
         try {
             await axios.post("http://localhost:8080/api/appointments/create", appointmentData);
-            navigate('/appointments')
+            navigate('/dashboard')
             closeModal();
         } catch (error) {
             console.error("Error booking appointment:", error);
