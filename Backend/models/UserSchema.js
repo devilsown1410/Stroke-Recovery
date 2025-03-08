@@ -9,8 +9,7 @@ const UserSchema = new mongoose.Schema(
     gender: { type: String, enum: ["Male", "Female", "Other"], required: true },
     contactNumber: { type: String, default: "" },
     address: { type: String, default: "" },
-    streak : { type: Number, default: 0},
-
+    streak: { type: Number, default: 0 },
     diseaseHistory: [
       {
         diseaseName: { type: String, required: true },
