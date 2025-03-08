@@ -68,7 +68,7 @@ const LandingPage = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative"
             >
-              <div className="relative z-10 bg-white bg-opacity-90 rounded-2xl shadow-xl overflow-hidden">
+              {/* <div className="relative z-10 bg-white bg-opacity-90 rounded-2xl shadow-xl overflow-hidden">
                 <img 
                   src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
                   alt="Stroke Recovery" 
@@ -91,7 +91,7 @@ const LandingPage = () => {
                     <span className="text-sm text-gray-500">Based on 2,500+ recoveries</span>
                   </div>
                 </div>
-              </div>
+              </div> */}
               
               {/* Floating elements */}
               <div className="absolute -top-6 -right-6 w-20 h-20 bg-primary-100 rounded-full animate-pulse-slow"></div>
