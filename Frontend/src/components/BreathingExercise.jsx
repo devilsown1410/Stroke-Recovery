@@ -5,7 +5,7 @@ import { Play, Pause, RefreshCw } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import BreathingAvatar from "./BreathingAvatar";
-import Timer from "@/components/timer"
+import Timer from "@/components/Timer"
 
 export default function BreathingExercise() {
   const [isActive, setIsActive] = useState(false)

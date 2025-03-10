@@ -8,6 +8,7 @@ export default defineConfig({
     proxy:{
       '/auth':'http://localhost:8080',
     },
+    host: '0.0.0.0',
   },
   plugins: [react()],
   resolve: {
